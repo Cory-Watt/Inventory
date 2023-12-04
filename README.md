@@ -37,13 +37,13 @@ dotnet run
 
 Navigate to https://localhost:7021/ to access the application.
 
-Configuration
+Configuration:
 Configure the SQL Server connection string in appsettings.json to connect to your database.
 
-License
+License:
 This project is licensed under the MIT License.
 
-Contact
+Contact:
 Cory Wattenberger – cory_wattenberger@hotmail.com
 
 Project Link: https://github.com/Cory-Watt/Inventory
