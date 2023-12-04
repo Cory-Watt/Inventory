@@ -1,0 +1,79 @@
+﻿@model Inventory.ViewModels.InventoryViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Application</title>
+    <link rel="stylesheet" href="~/css/inventory.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Inventory Application</h1>
+    </div>
+
+    <div class="search-bar">
+        <!-- Search form -->
+        <input type="text" id="searchItemId" placeholder="Item ID" />
+        <input type="text" id="searchItemName" placeholder="Item Name" />
+        <button class="button small" id="searchButton">Search</button>
+        <a class="button small" id="addNewItemButton" asp-action="AddNewItem" asp-controller="Inventory">Add New Item</a>
+    </div>
+
+    <div class="inventory-list-container" id="inventoryListContainer">
+        <!-- This table will be updated with the search results -->
+        <table class="inventory-list" id="inventoryList">
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity in Stock</th>
+                    <th>Vendor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be inserted here by the AJAX call -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="report-controls">
+        <select id="reportFormat" class="form-control">
+            <option value="pdf">PDF</option>
+            <option value="xlsx">XLSX</option>
+            <option value="csv">CSV</option>
+        </select>
+        <button onclick="generateReport()" class="btn btn-primary">Generate Report</button>
+    </div>
+
+    <script type="text/javascript">
+        function generateReport() {
+            var selectedFormat = document.getElementById('reportFormat').value;
+            var url = '';
+
+            switch (selectedFormat) {
+                case 'pdf':
+                    url = '@Url.Action("GeneratePdfReport", "Inventory")';
+                    break;
+                case 'xlsx':
+                    url = '@Url.Action("GenerateXlsxReport", "Inventory")';
+                    break;
+                case 'csv':
+                    url = '@Url.Action("GenerateCsvReport", "Inventory")';
+                    break;
+            }
+
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    </script>
+
+</body>
+</html>

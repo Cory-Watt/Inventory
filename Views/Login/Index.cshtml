@@ -1,0 +1,35 @@
+﻿@model Inventory.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+
+<div class="login-container">
+    <h2>Please Login</h2>
+    <div style="text-align:center; margin-bottom:20px;">
+        <img src="~/img/inventory.png" alt="Inventory Logo" style="width:300; height:auto;">
+    </div>
+    <form asp-action="ProcessLogin">
+        <input type="text" asp-for="UserName" placeholder="Username">
+        <input type="password" asp-for="Password" placeholder="Password">
+        <input type="submit" value="Login">
+    </form>
+    <div class="create-account">
+        Don't Have an Account?
+        <a asp-controller="Registration" asp-action="Index">Create Account</a>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

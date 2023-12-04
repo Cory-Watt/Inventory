@@ -1,0 +1,160 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.search-bar {
+    padding: 20px;
+    background: #ddd;
+    text-align: center;
+}
+
+    .search-bar input[type="text"],
+    .search-bar button {
+        padding: 10px;
+        margin: 5px;
+    }
+
+.inventory-list-container {
+    height: 500px;
+    overflow-y: auto; /* enables vertical scrolling */
+    border: 1px solid #ccc; /* adds a border around the scrollable area */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.inventory-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .inventory-list th,
+    .inventory-list td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .inventory-list th {
+        background-color: #1c1c1c;
+    }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+    .button.small {
+        padding: 10px 20px;
+    }
+
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.highlighted-row {
+    background-color: #034afc;
+}
+
+.report-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns to the right */
+    margin-bottom: 20px; /* Spacing from content below */
+}
+
+    .report-controls select.form-control {
+        padding: 6px 10px; /* Adjusts padding for aesthetics */
+        font-size: 16px; /* Font size similar to button */
+        border: 1px solid #ccc; /* Border color */
+        margin-right: 10px; /* Spacing between select and button */
+    }
+
+    .report-controls .btn-primary {
+        padding: 2px 6px; /* Button padding */
+        color: #fff; /* Text color */
+        background-color: #007bff; /* Background color */
+        border-color: #007bff; /* Border color */
+        border-radius: 4px; /* Border radius */
+        font-size: 12px; /* Font size */
+        cursor: pointer; /* Cursor on hover */
+    }
+
+        .report-controls .btn-primary:hover {
+            background-color: #0069d9; /* Darker shade on hover */
+            border-color: #0062cc; /* Border color on hover */
+        }
+
+/* Pagination container */
+.pagination {
+    text-align: center; /* Center align the pagination controls */
+    margin-top: 20px; /* Space above the pagination bar */
+}
+
+    /* Pagination links */
+    .pagination a {
+        color: #4CAF50; /* Button text color */
+        float: none; /* Prevents floating */
+        padding: 8px 16px; /* Padding inside the buttons */
+        text-decoration: none; /* Removes underlines from the links */
+        transition: background-color .3s; /* Smooth transition for hover effect */
+        margin: 0 4px; /* Spacing between buttons */
+        border: 1px solid #ddd; /* Border for the buttons */
+        border-radius: 5px; /* Rounded corners for the buttons */
+    }
+
+        /* Style the active/current page number */
+        .pagination a.active {
+            background-color: #4CAF50; /* Background color for the active link */
+            color: white; /* Text color for the active link */
+            border: 1px solid #4CAF50; /* Border for the active link */
+        }
+
+        /* Add a grey background color on mouse-over */
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }

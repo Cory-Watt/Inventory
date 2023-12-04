@@ -1,0 +1,97 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.form-column {
+    width: 100%;
+    padding: 0 15px;
+}
+
+@media (min-width: 768px) {
+    .form-column {
+        width: calc(50% - 30px);
+        margin-bottom: 0;
+    }
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="text"],
+textarea {
+
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;    
+}
+
+textarea {
+    height: 40px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between; /* This will align items on opposite ends */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.inline-form {
+    margin: 0; /* Remove additional margin if not needed */
+}
+
+.button-group div {
+    margin-right: 10px; /* Space between buttons */
+}
+
+.button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    color: white;
+}
+
+.save-button {
+    float: right;
+    background-color: #4CAF50;
+}
+
+.delete-button {
+    background-color: #f44336;
+}

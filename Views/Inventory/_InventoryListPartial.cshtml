@@ -1,0 +1,48 @@
+﻿@model Inventory.ViewModels.InventoryViewModel
+
+
+    <style>
+    .highlighted-row {
+        background-color: #034afc;
+    }
+    </style>
+
+<script type="text/javascript">
+    var inventoryListUrl = '@Url.Action("InventoryList", "Inventory")';
+</script>
+
+<table>
+    <thead>
+        <tr>
+            <th>Item ID</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity in Stock</th>
+            <th>Vendor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr class="item-row" data-item-id="@item.ItemId">
+                <td>@item.ItemId</td>
+                <td>@item.ItemName</td>
+                <td>@item.ItemDescription</td>
+                <td>@item.ItemPrice.ToString("C")</td> <!-- formatting as currency -->
+                <td>@item.ItemQuantity</td>
+                <td>@item.ItemVendorName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a href="#" onclick="loadPage(@i)">@i</a>
+        }
+    </div>
+</table>

@@ -1,0 +1,41 @@
+﻿@model Inventory.Models.UserModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/registration.css">
+</head>
+
+<div class="register-container">
+    <h2>Create New Account</h2>
+    <form asp-action="ProcessRegistration">
+        <div class="form-field">
+            <input asp-for="FirstName" type="text" placeholder="First Name" />
+            <input asp-for="LastName" type="text" placeholder="Last Name" />
+        </div>
+        <div class="form-field">
+            <input asp-for="Email" type="email" placeholder="Email Address" style="width:100%;" />
+        </div>
+        <div class="form-field">
+            <input asp-for="UserName" type="text" placeholder="Username" style="width:100%;" />
+        </div>
+        <div class="form-field">
+            <input asp-for="Password" type="password" placeholder="Password" style="width:100%;" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
