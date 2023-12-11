@@ -1,6 +1,4 @@
 ﻿@model Inventory.ViewModels.InventoryViewModel
-
-
     <style>
     .highlighted-row {
         background-color: #034afc;
@@ -37,7 +35,6 @@
     </tbody>
 </table>
 
-<table>
     <!-- Pagination Controls -->
     <div class="pagination">
         @for (int i = 1; i <= Model.TotalPages; i++)
@@ -45,4 +42,3 @@
             <a href="#" onclick="loadPage(@i)">@i</a>
         }
     </div>
-</table>

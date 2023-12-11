@@ -11,8 +11,6 @@ namespace Inventory.Controllers
     // LoginController inherits from the base Controller class provided by ASP.NET MVC
     public class LoginController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-
         // SecurityService instance to handle the login logic
         private readonly SecurityService _securityService;
 
@@ -44,6 +42,11 @@ namespace Inventory.Controllers
                     // Set the username in session
                     HttpContext.Session.SetString("username", user.UserName);
 
+                    // Set no-cache headers for the response
+                    Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+                    Response.Headers["Pragma"] = "no-cache";
+                    Response.Headers["Expires"] = "0";
+
                     return View("LoginSuccess");
                 }
                 else
@@ -55,6 +58,16 @@ namespace Inventory.Controllers
 
             // If ModelState is not valid, return to the Index view with the user model to display validation errors
             return View("Index", user);
+        }
+
+        // Action to logout the user
+        public IActionResult Logout()
+        {
+            // Clear the existing session
+            HttpContext.Session.Clear();
+
+            // Redirect to the login/home page after logout 
+            return RedirectToAction("Index", "Login");
         }
     }
 }

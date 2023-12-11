@@ -12,13 +12,14 @@ using iText.Layout.Element;
 using ClosedXML.Excel;
 using CsvHelper;
 using System.Globalization;
+using System.Net.WebSockets;
 
 namespace Inventory.Controllers
 {
     // InventoryController: Controller class handling inventory-related operations.
     public class InventoryController : Controller
     {
-        private InventoryDAO _inventoryDAO; // Data access object for inventory operations
+        private readonly InventoryDAO _inventoryDAO; // Data access object for inventory operations
         private readonly ILogger<InventoryController> _logger; // Logger for logging
 
         // Constructor initializes the DAO and Logger
@@ -129,7 +130,7 @@ namespace Inventory.Controllers
             this.WithDanger("Index", "Item not found."); // Display an error message if item is not found
             return RedirectToAction("Index"); // Redirects to the inventory list
         }
-
+         
         // Processes the update of an existing inventory item
         [HttpPost]
         public IActionResult Edit(ItemModel item)
@@ -209,6 +210,9 @@ namespace Inventory.Controllers
                 table.AddHeaderCell("Vendor Contact");
                 table.AddHeaderCell("Associated Products");
 
+                // Initialize the total price
+                decimal totalPrice = 0;
+
                 // Add data
                 foreach (var item in inventoryData)
                 {
@@ -221,14 +225,24 @@ namespace Inventory.Controllers
                     table.AddCell(new Cell().Add(new Paragraph(item.ItemVendorName.ToString())));
                     table.AddCell(new Cell().Add(new Paragraph(item.ItemVendorContactDetails?.ToString() ?? "N/A")));
                     table.AddCell(new Cell().Add(new Paragraph(item.ItemVendorAssociatedProducts?.ToString() ?? "N/A")));
+
+                    // Calculate the total price
+                    totalPrice += item.ItemPrice * item.ItemQuantity;
                 }
 
                 document.Add(table);
+
+                // Adding blank line before the summary
+                document.Add(new Paragraph(new Text("\n")));
+
+                // Adding the summary with the total price
+                document.Add(new Paragraph($"Total Inventory Value: {totalPrice:C}"));
 
                 // Close the document
                 document.Close();
 
                 // Convert the written MemoryStream to an array and send it as a File
+                // Add date/time stamp to the filename to avoid files being overwritten and for historical record keeping 
                 return File(stream.ToArray(), "application/pdf", "InventoryReport" + DateTime.Now.ToString() + ".pdf");
             }
         }
@@ -250,6 +264,9 @@ namespace Inventory.Controllers
                 worksheet.Cell(currentRow, 8).Value = "Vendor Contact";
                 worksheet.Cell(currentRow, 9).Value = "Associated Products";
 
+                // Initialize the total price
+                decimal totalPrice = 0;
+
                 var inventoryData = _inventoryDAO.GetItemsForReport();
                 foreach (var item in inventoryData)
                 {
@@ -263,7 +280,19 @@ namespace Inventory.Controllers
                     worksheet.Cell(currentRow, 7).Value = item.ItemVendorName;
                     worksheet.Cell(currentRow, 8).Value = item.ItemVendorContactDetails;
                     worksheet.Cell(currentRow, 9).Value = item.ItemVendorAssociatedProducts;
+
+                    // Calculate the total price
+                    totalPrice += item.ItemPrice * item.ItemQuantity;
                 }
+                // Adding blank line before the summary
+                currentRow++;
+
+                // Adding the summary with the total price
+                currentRow++;
+                worksheet.Cell(currentRow, 3).Value = "Total Inventory Value: ";
+                var totalPriceCell = worksheet.Cell(currentRow, 4);
+                totalPriceCell.Value = totalPrice;
+                totalPriceCell.Style.NumberFormat.Format = "0.00"; // Format to show two decimal places
 
                 using (var stream = new MemoryStream())
                 {

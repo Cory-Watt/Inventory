@@ -10,6 +10,11 @@ namespace Inventory.Controllers
         // OnAuthorization: The method that gets called when the authorization filter is invoked.
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            // Prevent caching of this response
+            context.HttpContext.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+            context.HttpContext.Response.Headers["Pragma"] = "no-cache";
+            context.HttpContext.Response.Headers["Expires"] = "0";
+
             // Retrieve the username from the session.
             // This assumes that the username is stored in the session upon successful login.
             string userName = context.HttpContext.Session.GetString("username");
